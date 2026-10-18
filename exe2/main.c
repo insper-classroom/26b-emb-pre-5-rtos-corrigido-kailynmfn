@@ -37,15 +37,12 @@ void btn_1_task(void *p) {
   gpio_set_dir(BTN_PIN_R, GPIO_IN);
   gpio_pull_up(BTN_PIN_R);
 
-  int delay = 250;
-
   while (true) {
-
-    if (xSemaphoreTake(xSemaphore_r, pdMS_TO_TICKS(500)) == pdTRUE) {
-      gpio_put(LED_PIN_R, 1);
-      vTaskDelay(pdMS_TO_TICKS(delay));
-      gpio_put(LED_PIN_R, 0);
-      vTaskDelay(pdMS_TO_TICKS(delay));
+    if (!gpio_get(BTN_PIN_R)) {
+      while (!gpio_get(BTN_PIN_R)) {
+        vTaskDelay(pdMS_TO_TICKS(1));
+      }
+      xSemaphoreGive(xSemaphore_r);
     }
   }
 }
