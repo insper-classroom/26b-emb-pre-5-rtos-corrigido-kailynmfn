@@ -37,10 +37,6 @@ void btn_1_task(void *p) {
   gpio_set_dir(BTN_PIN_R, GPIO_IN);
   gpio_pull_up(BTN_PIN_R);
 
-  void led_1_task(void *p) {
-  gpio_init(LED_PIN_R);
-  gpio_set_dir(LED_PIN_R, GPIO_OUT);
-
   int delay = 250;
 
   while (true) {
